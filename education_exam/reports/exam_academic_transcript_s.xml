@@ -136,9 +136,9 @@
                                     font-size:60px;
                                     align:center;
                                     font-size:16px;
-                                    padding-top:2px
-                                    padding-left:2px;
+                                    padding-top:2px;
                                     padding-right:2px;
+                                    padding-left:2px;
                                     padding-bottom:2px;
                                     text-align: center;
                                     }
@@ -171,10 +171,6 @@
                             .dont_split{
                                page-break-inside: avoid;
                                 }
-
-
-
-
                         </style>
 <!--   ######    Variables for the report    -->
                         <t t-set="subject_count" t-value="count_subjects(student,docs,'non_optional')"/>
@@ -257,22 +253,22 @@
                                     </div>
                                     <div class="left_top">
                                         <table>
-                                            <tr><td>ID: </td><td><span t-field="student.student_id.student_id"/></td>
-                                                <td>Roll: </td><td><span t-field="student.student_id.roll_no"/></td>
-                                                <td>Section: </td><td><span t-field="student.student_id.class_id.section_id"/></td>
-                                                <td>Category: </td><td><t t-if="student.student_id.student_category=='internal'">I</t>
+                                            <tr><td> ID </td><td width="50px" ><span t-field="student.student_id.student_id"/></td>
+                                                <td> Roll </td><td width="50px"><span t-field="student.student_id.roll_no"/></td>
+                                                <td> Section </td><td width="40px"><span t-field="student.student_id.class_id.section_id"/></td>
+                                                <td> Category </td><td width="40px"><t t-if="student.student_id.student_category=='internal'">I</t>
                                                                         <t t-else="">E</t> </td>
                                             </tr>
                                             <tr>
-                                                <td>Name: </td><td colspan="7"><span t-field="student.student_id.name"/></td>
+                                                <td>Name </td><td colspan="7"><span t-field="student.student_id.name"/></td>
 
                                             </tr>
                                              <tr>
-                                                <td colspan="2">Father's Name: </td><td colspan="6"><span t-field="student.student_id.father_name.name"/></td>
+                                                <td colspan="3">Father's Name </td><td colspan="5"><span t-field="student.student_id.father_name.name"/></td>
 
                                             </tr>
                                             <tr>
-                                                <td colspan="2">Mother's Name: </td><td colspan="6"><span t-field="student.student_id.mother_name.name"/></td>
+                                                <td colspan="3">Mother's Name </td><td colspan="5"><span t-field="student.student_id.mother_name.name"/></td>
 
                                             </tr>
                                         </table>
@@ -356,7 +352,7 @@
 
                                                 <t t-if="exam_first">
                                                     <td>
-                                                        <span t-field="subject.display"/>
+                                                        <span t-field="subject.subject_id"/>
                                                     </td>
                                                     <t t-if="paper_field==1">
                                                        <td>
@@ -435,7 +431,7 @@
                                     <tr>
                                         <t t-foreach="exams" t-as="exam">
                                                        <t t-if="exam_first">
-                                                           <td t-att-colspan="mark_type_count*2+2">
+                                                           <td t-att-colspan="mark_type_count*2+2 + paper_field">
                                                                <t t-if="fourth_subject==0">
                                                                    Total Mark :
                                                                    <p>Percentage of total mark :
@@ -557,7 +553,7 @@
 
                                                        <t t-if="exam_first">
                                                             <p>&lt;/tr&gt;&lt;tr&gt;</p>
-                                                           <td t-att-colspan="mark_type_count*2+2">
+                                                           <td t-att-colspan="mark_type_count*2+2 +paper_field">
                                                                 Total Mark with Additional Subject:
                                                                <p>percentage of total mark with additional subjects</p>
                                                            </td>
