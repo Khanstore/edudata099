@@ -31,8 +31,12 @@ class examEvaluation(models.AbstractModel):
         return student
     def get_subjects(self, section,obj):
         subjs=self.env['education.syllabus'].search([('class_id','=',section.class_id.id),('academic_year','=',obj.academic_year.id)])
+        subject_list=[]
+        for subj in subjs:
+            if len(subj.compulsory_for)>0:
+                subject_list.append(subj)
 
-        return subjs
+        return subject_list
     def get_marks(self,exam,subject,student):
         marks=self.env['results.subject.line'].search([('exam_id','=',exam.id),('subject_id','=',subject.id),('student_id','=',student.id)])
         return marks
