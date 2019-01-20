@@ -8,7 +8,7 @@ import numpy
 
 
 class acdemicTranscripts(models.AbstractModel):
-    _name = 'report.education_exam.report_exam_academic_transcript_s'
+    _name = 'report.education_exam.report_exam_academic_transcript_new'
     def get_exams(self, objects):
         obj = []
         for object in objects.exams:
@@ -49,18 +49,6 @@ class acdemicTranscripts(models.AbstractModel):
                 subjs.extend(subj)
 
         return subjs
-    def get_subject_group(self,syllabuses):
-        groups={}
-        for sub in syllabuses:
-            subj_id=sub.subject_id
-            if groups.get(subj_id)==None:
-                groups[subj_id]=[1,sub]
-            else:
-                groups[subj_id][0]=groups[subj_id][0]+1
-                groups[subj_id].append(sub)
-        return groups
-
-
     def get_optional_subjects(self,student_history,object):
         # student_history = self.env['education.class.history'].search(
         #     [('id', '=', student.id), ('academic_year_id', "=", object.academic_year.id)])
@@ -178,7 +166,7 @@ class acdemicTranscripts(models.AbstractModel):
 
         for rec in records:
             if rec.subject_id in student_history.optional_subjects:
-                optional_gp = optional_gp + rec.grade_point
+                optioal_gp = optional_gp + rec.grade_point
                 o_count = o_count + 1
             elif rec.subject_id.evaluation_type == 'general':
                 general_gp = general_gp + rec.grade_point
@@ -398,5 +386,4 @@ class acdemicTranscripts(models.AbstractModel):
             'get_exam_obtained_total': self.get_exam_obtained_total,
             'count_subjects': self.count_subjects,
             'num2serial': self.num2serial,
-            'get_subject_group': self.get_subject_group,
         }

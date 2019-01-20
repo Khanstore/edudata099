@@ -121,7 +121,7 @@
         </div>
     </template>
 
-        <template id="report_exam_academic_transcript_s">
+        <template id="report_exam_academic_transcript_new">
             <t t-call="web.html_container">
                 <t t-call="education_exam.external_layout_blank">
                 <t t-set="merit_list" t-value="get_merit_list(docs)"/>
@@ -341,11 +341,15 @@
                                         </t>
                                     </t>
 
-                                    <t t-set="subject_group" t-value="get_subject_group(subjects)"/>
-                                    <t t-foreach="subjects" t-as="subject">
 
+                                    <t t-foreach="subjects" t-as="subject">
                                         <tr>
                                             <t t-foreach="exams" t-as="exam">
+                                                <t t-set="gpa" t-value="get_gpa(student,exam,'non_optional','general')"/>
+                                                <t t-set="optional_gpa" t-value="get_gpa(student,exam,'optional','general')"/>
+                                                <t t-set="exam_obtained_total" t-value="get_exam_obtained_total(exam,student,'non_optional','general')"/>
+                                                <t t-set="exam_total" t-value="get_exam_total(exam,student,'non_optional','general')"/>
+
                                                 <t t-if="exam_first">
                                                     <td>
                                                         <span t-field="subject.subject_id"/>
@@ -397,11 +401,7 @@
                                                     <td><span t-field="mark.letter_grade"/></td>
                                                     <td><span t-field="mark.grade_point"/></td>
                                                     <t t-if="subject_first">
-                                                        <t t-set="gpa" t-value="get_gpa(student,exam,'non_optional','general')"/>
-                                                       <t t-set="optional_gpa" t-value="get_gpa(student,exam,'optional','general')"/>
-                                                        <t t-set="exam_obtained_total" t-value="get_exam_obtained_total(exam,student,'non_optional','general')"/>
-                                                        <t t-set="exam_total" t-value="get_exam_total(exam,student,'non_optional','general')"/>
-                                                        <td t-att-rowspan="subject_count">
+                                                       <td t-att-rowspan="subject_count">
                                                            <t t-if="gpa>=5">
                                                                <t t-esc="5"/>
                                                            </t>
@@ -456,7 +456,7 @@
                                                                 <t t-esc="get_exam_obtained_total(exam,student,'non_optional','general')"/>
                                                            </td>
                                                            <td></td>
-                                                           <td t-att-colspan="3+fourth_subject"> </td>
+                                                           <td t-att-colspan="3+fourth_subject"></td>
                                                        </t>
                                                         <t t-else="">
                                                             <td t-att-colspan="mark_type_count ">
@@ -534,11 +534,11 @@
                                                           <td><span t-field="highest.mark_scored"/></td>
                                                           <td><span t-field="mark.letter_grade"/></td>
                                                           <td><span t-field="mark.grade_point"/></td>
-                                                           <t t-if="subject_first">
-                                                               <td t-att-rowspan="optional_count"> </td>
+                                                           <t t-if="subject_first"><td t-att-rowspan="optional_count">
+                                                               </td>
                                                                <t t-if="fourth_subject>0">
                                                                    <td t-att-rowspan="optional_count">
-                                                                       <!--<t t-esc="optional_gpa-2"/>-->
+                                                                       <t t-esc="get_gpa(student,exam,'optional','extra')"/>
                                                                    </td>
                                                                </t>
                                                            </t>
@@ -632,9 +632,11 @@
                                                           <td><span t-field="mark.grade_point"/></td>
                                                            <t t-if="subject_first">
                                                                <td t-att-rowspan="extra_count">
+                                                                    <!--<span t-esc="get_gpa(student,exam,'non_optional','extra')"/>-->
                                                                </td>
                                                                <t t-if="fourth_subject>0">
                                                                    <td t-att-rowspan="extra_count">
+                                                                       <!--<t t-esc="get_gpa(student,exam,'non_optional','extra')+(get_gpa(student,exam,'optional','extra')-2)/subject_count"/>-->
                                                                    </td>
                                                                </t>
                                                            </t>

@@ -35,8 +35,23 @@ class examEvaluation(models.AbstractModel):
         for subj in subjs:
             if len(subj.compulsory_for)>0:
                 subject_list.append(subj)
+            elif len(subj.optional_for)>0:
+                subject_list.append(subj)
+            elif len(subj.optional_for)>0:
+                subject_list.append(subj)
 
         return subject_list
+    def check_optional(self,subject,student,exam):
+        is_optional=0
+        student_history = self.env['education.class.history'].search(
+            [('student_id', '=', student.id), ('academic_year_id', '=', exam.academic_year.id)])
+        optional_subject=student_history.optional_subjects
+        for sub in optional_subject:
+            if sub.id==subject.id:
+                is_optional=1
+
+
+        return is_optional
     def get_marks(self,exam,subject,student):
         marks=self.env['results.subject.line'].search([('exam_id','=',exam.id),('subject_id','=',subject.id),('student_id','=',student.id)])
         return marks
@@ -93,4 +108,5 @@ class examEvaluation(models.AbstractModel):
             'get_gpa': self.get_gpa,
             'get_lg': self.get_lg,
             'get_exam_obtained_total': self.get_exam_obtained_total,
+            'check_optional': self.check_optional,
         }

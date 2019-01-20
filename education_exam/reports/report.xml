@@ -71,6 +71,15 @@
             file="education_exam.report_exam_academic_transcript"
         />
         <report
+            id="action_exam_academic_transcript_new"
+            model="academic.transcript"
+            string="Academic Transcript New"
+            report_type="qweb-pdf"
+            paperformat="A4_portrait"
+            name="education_exam.report_exam_academic_transcript_new"
+            file="education_exam.report_exam_academic_transcript"
+        />
+        <report
             id="action_merit_list"
             model="academic.transcript"
             string="Merit List"

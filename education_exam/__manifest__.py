@@ -26,6 +26,7 @@
         'reports/exam_evaluation.xml',
         'reports/merit_list.xml',
         'reports/exam_academic_transcript_s.xml',
+        'reports/exam_academic_transcript_new.xml',
         'reports/report.xml',
         'wizards/academic_transcript_wizard.xml',
     ],

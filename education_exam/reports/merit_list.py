@@ -50,6 +50,7 @@ class examEvaluation(models.AbstractModel):
         subjs=self.env['education.syllabus'].search([('class_id','=',section.class_id.id),('academic_year','=',obj.academic_year.id)])
 
         return subjs
+
     def get_marks(self,subject,student,exam):
         marks=[]
         mark_line=self.env['results.subject.line'].search([('student_id','=',student.id),('exam_id','=',exam.id),('subject_id','=',subject.id)])

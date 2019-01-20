@@ -22,6 +22,12 @@ class EducationExamResults(models.Model):
     total_max_mark = fields.Integer(string='Total Max Mark', store=True, readonly=True, compute='_total_marks_all')
     total_mark_scored = fields.Integer(string='Total Marks Scored', store=True, readonly=True, compute='_total_marks_all')
     overall_pass = fields.Boolean(string='Overall Pass/Fail', store=True, readonly=True, compute='_total_marks_all')
+    gpa=fields.Float("GPA")
+    LG=fields.Char("Letter Grade")
+    gpa_optional=fields.Float("GPA (Op)")
+    gpa_net=fields.Float("GPA (Net)")
+    lg_op=fields.Char("LG (Op)")
+    lg_net=fields.Char("LG (Net)")
     @api.depends('subject_line.mark_scored')
     def _total_marks_all(self):
         for results in self:
