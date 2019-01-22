@@ -12,7 +12,7 @@
                                 attrs="{'invisible': ['|', ('mark_sheet_created', '=', False),('state', '!=', 'draft')]}"
                                 class="oe_highlight" string="Completed"/>
                         <button name="valuation_canceled" type="object"
-                                attrs="{'invisible': [('state', '!=', 'draft')]}" string="Cancel"/>
+                                attrs="{'invisible': True}" string="Cancel"/>
                         <button name="set_to_draft" type="object" attrs="{'invisible': [('state', '!=', 'completed')]}"
                                 string="Set to Draft"/>
                         <field name="state" readonly="1" widget="statusbar" statusbar_visible="draft,completed"/>

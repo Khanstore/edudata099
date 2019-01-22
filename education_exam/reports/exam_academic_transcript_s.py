@@ -159,7 +159,7 @@ class acdemicTranscripts(models.AbstractModel):
             if additional>0:
                 sur_plus=optional_total-(additional*40/100)
                 if sur_plus>0:
-                    return sur_plus+general_total
+                    return int(sur_plus+general_total)
                 else: return general_total
             else:
                 return general_total
@@ -170,6 +170,28 @@ class acdemicTranscripts(models.AbstractModel):
             return general_total
         elif evaluation == 'extra':
             return extra_total
+    def check_pass_fail(self,exam,subject,student):
+        fail=0
+        if isinstance(subject, list):
+            x=1
+        else:
+            #do for single subject
+
+            mark=self.get_marks( exam, subject, student)
+            if mark.tut_mark <mark.subject_id.tut_pass:
+                fail=fail+1
+            if mark.prac_mark <mark.subject_id.prac_pass:
+                fail = fail + 1
+            if mark.subj_mark <mark.subject_id.subj_pass:
+                fail = fail + 1
+            if mark.obj_mark <mark.subject_id.obj_pass:
+                fail = fail + 1
+        if fail>0:
+            return "fail"
+        else:
+            return"pass"
+
+
 
     def get_exam_total(self,exam,student_history,optional,evaluation):
         student = student_history.student_id
@@ -450,4 +472,5 @@ class acdemicTranscripts(models.AbstractModel):
             'paper_highest': self.paper_highest,
             'get_leter_grade': self.get_leter_grade,
             'paper_grade_point': self.paper_grade_point,
+            'check_pass_fail': self.check_pass_fail,
         }
